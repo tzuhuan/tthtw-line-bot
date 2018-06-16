@@ -46,7 +46,7 @@ def handle_sticker_message(event):
     line_bot_api.reply_message(
 	    event.reply_token,
         TextSendMessage(text=reply_msg))
-    sticker_message = StickerMessage(package_id='1', sticker_id='13')
+    sticker_message = StickerMessage(package_id='1', sticker_id=13)
     line_bot_api.reply_message(event.reply_token, sticker_message)
 		
 if __name__ == "__main__":
