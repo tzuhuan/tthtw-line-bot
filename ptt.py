@@ -3,6 +3,7 @@ import requests, bs4, sys
 PTT = 'https://www.ptt.cc'
 PTT_BEAUTY = 'https://www.ptt.cc/bbs/Beauty'
 PTT_O2 = 'https://www.ptt.cc/bbs/AllTogether'
+PTT_WORLDCUP = 'https://www.ptt.cc/bbs/WorldCup'
 
 def parse_web(url):
     res = requests.get(url)
@@ -35,7 +36,10 @@ def parse_web(url):
 def o2():
     url = "{}/search?q={}".format(PTT_O2, '徵男')
     print(url)
-    return parse_web(url)
+    return parse_web(url)  
+
+def fifa():
+    return '賽程表\n{}'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
 
 def beauty(keyword):
     url = "{}/search?q={}".format(PTT_BEAUTY, keyword)
@@ -48,6 +52,8 @@ if __name__ == '__main__':
         o2()
     elif sys.argv[1] == 'beauty':
         beauty(sys.argv[2]);
+    elif sys.argv[1] == 'fifa':
+        print(fifa())
     else:
         print('command error')
     

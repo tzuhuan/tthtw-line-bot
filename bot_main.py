@@ -10,6 +10,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage,
 )
 
+import ptt
+
 app = Flask(__name__)
 
 line_bot_api = LineBotApi('BuhgBcv9EZuqq4enk25URlqliZiOVvU8DSddmNzEz7UGJWLITA9RHMZAaX/B/2vNoQ1JK+C4ABG0JvZ76mBZYw2wVjRzzhdBytaD6lqGd3JcaY2eO19M8ti6BacaitPfX54231wsRAjKHYoR27934QdB04t89/1O/w1cDnyilFU=')
@@ -38,11 +40,12 @@ def callback():
 def handle_message(event):
     reply_message = ''
 
-    if event.message.text == 'o2' or event.message.text == 'O2':
-        import ptt
+    if event.message.text.lower() == 'o2':
         urls = ptt.o2()
         for url in urls:
-            reply_message += '{}'.format(url)
+            reply_message += url
+    elif event.message.text.lower() == 'fifa':
+        reply_message = ptt.fifa()
     else:
         reply_message = '>> ' + event.message.text
     
