@@ -17,16 +17,17 @@ def parse_web(url):
     count = 0
 
     for link in links:
+        print(str(link))
         print(link.get('href'))
             
-    results.append("{}{}".format(PTT, links[0].get('href')))
-    results.append("{}{}".format(PTT, links[1].get('href')))
-    results.append("{}{}".format(PTT, links[2].get('href')))
+    results.append("{}\n{}{}\n".format(links[0].getText(), PTT, links[0].get('href')))
+    results.append("{}\n{}{}\n".format(links[1].getText(), PTT, links[1].get('href')))
+    results.append("{}\n{}{}\n".format(links[2].getText(), PTT, links[2].get('href')))
 
     print('\n')
 
     for i in results:
-        print("{}{}".format(PTT, i))
+        print(i)
 
     return results
     

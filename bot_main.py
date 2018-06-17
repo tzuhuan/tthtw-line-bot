@@ -42,7 +42,7 @@ def handle_message(event):
         import ptt
         urls = ptt.o2()
         for url in urls:
-            reply_message += '{}\n'.format(url)
+            reply_message += '{}'.format(url)
     else:
         reply_message = '>> ' + event.message.text
     
