@@ -40,18 +40,20 @@ def callback():
 def handle_message(event):
     reply_message = ''
 
-    if event.message.text.lower() == 'o2':
+    if event.message.text.lower() == 'ptto2':
         urls = ptt.o2()
         for url in urls:
             reply_message += url
     elif event.message.text.lower() == 'fifa':
         reply_message = ptt.fifa()
+    elif event.message.text.lower() == 'help':
+        reply_message = 'Supported command:\nfifa'
     else:
         reply_message = '>> ' + event.message.text
     
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=reply_message))
+    #line_bot_api.reply_message(
+    #    event.reply_token,
+    #    TextSendMessage(text=reply_message))
 
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):
