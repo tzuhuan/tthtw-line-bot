@@ -35,7 +35,7 @@ def callback():
 
     return 'OK'
 
-def SendPunchSticker():
+def SendPunchSticker(event):
     sticker_message = StickerMessage(package_id='2', sticker_id=147)
     line_bot_api.reply_message(event.reply_token, sticker_message)   
 
@@ -50,7 +50,7 @@ def handle_message(event):
     elif event.message.text.lower() == 'fifa':
         reply_message = ptt.fifa()
     elif event.message.text.lower() == 'punch' or event.message.text == '揍':
-        SendPunchSticker()
+        SendPunchSticker(event)
         return
     elif event.message.text.lower() == 'help':
         reply_message = 'Supported command:\nfifa\n揍 or punch'
