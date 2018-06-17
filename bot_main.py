@@ -49,7 +49,7 @@ def handle_message(event):
             reply_message += url
     elif event.message.text.lower() == 'fifa':
         reply_message = ptt.fifa()
-    elif event.message.text.lower() == 'punch' or '揍':
+    elif event.message.text.lower() == 'punch' or event.message.text == '揍':
         SendPunchSticker()
         return
     elif event.message.text.lower() == 'help':
