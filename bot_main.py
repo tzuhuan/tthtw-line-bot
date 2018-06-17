@@ -57,8 +57,6 @@ def handle_message(event):
         return
     elif event.message.text.lower() == 'help':
         reply_message = 'Supported commands:\nfifa\n揍\npunch'
-    #else:
-    #    reply_message = '>> ' + event.message.text
     
     line_bot_api.reply_message(
         event.reply_token,
