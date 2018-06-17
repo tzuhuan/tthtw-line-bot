@@ -39,7 +39,7 @@ def o2():
     return parse_web(url)  
 
 def fifa():
-    return '賽程表\n{}'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
+    return 'FIFA2018 賽程表\n{}'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
 
 def beauty(keyword):
     url = "{}/search?q={}".format(PTT_BEAUTY, keyword)
