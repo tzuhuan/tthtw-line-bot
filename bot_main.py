@@ -48,12 +48,12 @@ def handle_message(event):
         reply_message = ptt.fifa()
     elif event.message.text.lower() == 'help':
         reply_message = 'Supported command:\nfifa'
-    else:
-        reply_message = '>> ' + event.message.text
+    #else:
+    #    reply_message = '>> ' + event.message.text
     
-    #line_bot_api.reply_message(
-    #    event.reply_token,
-    #    TextSendMessage(text=reply_message))
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=reply_message))
 
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):
