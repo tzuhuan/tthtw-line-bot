@@ -14,8 +14,8 @@ import ptt, configparser
 
 app = Flask(__name__)
 
-config = configparser.ConfigParser()
-config.read('config.ini')
+#config = configparser.ConfigParser()
+#config.read('config.ini')
 
 line_bot_api = LineBotApi('21966c724075b8636306fb9d7f47201a')
 handler = WebhookHandler('BuhgBcv9EZuqq4enk25URlqliZiOVvU8DSddmNzEz7UGJWLITA9RHMZAaX/B/2vNoQ1JK+C4ABG0JvZ76mBZYw2wVjRzzhdBytaD6lqGd3JcaY2eO19M8ti6BacaitPfX54231wsRAjKHYoR27934QdB04t89/1O/w1cDnyilFU=')
