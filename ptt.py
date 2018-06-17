@@ -19,9 +19,9 @@ def parse_web(url):
     for link in links:
         print(link.get('href'))
             
-    results.append(links[0].get('href'))
-    results.append(links[1].get('href'))
-    results.append(links[2].get('href'))
+    results.append("{}{}".format(PTT, links[0].get('href')))
+    results.append("{}{}".format(PTT, links[1].get('href')))
+    results.append("{}{}".format(PTT, links[2].get('href')))
 
     print('\n')
 
