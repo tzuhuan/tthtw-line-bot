@@ -38,7 +38,7 @@ def callback():
 def handle_message(event):
     reply_message = ''
 
-    if event.message.text == 'o2':
+    if event.message.text == 'o2' or event.message.text == 'O2':
         import ptt
         urls = ptt.o2()
         for url in urls:
