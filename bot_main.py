@@ -56,7 +56,7 @@ def handle_message(event):
         SendPunchSticker(event)
         return
     elif event.message.text.lower() == 'help':
-        reply_message = 'Supported command:\nfifa\n揍\npunch'
+        reply_message = 'Supported commands:\nfifa\n揍\npunch'
     #else:
     #    reply_message = '>> ' + event.message.text
     
