@@ -57,11 +57,11 @@ def beauty(keyword = None):
 if __name__ == '__main__':
     print(sys.argv)
     commands = sys.argv[1].split()
-
+    print(commands)
     if commands[0] == 'o2':
         print(o2())
     elif commands[0] == 'beauty':
-        if len(commands) > 2:
+        if len(commands) > 1:
             print(beauty(commands[1]))
         else:
             print(beauty())
