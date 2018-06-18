@@ -7,7 +7,6 @@ PTT_WORLDCUP = 'https://www.ptt.cc/bbs/WorldCup'
 PTT_STOCK = 'https://www.ptt.cc/bbs/Stock'
 
 def parse_web(url):
-    return url
     res = requests.get(url)
     try:
         res.raise_for_status()
@@ -17,6 +16,8 @@ def parse_web(url):
     bs = bs4.BeautifulSoup(res.text, 'html.parser')
     links = bs.select('.title a')
 
+    return url
+    
     count = str(len(links))
     print(count)
     if count == 0:
