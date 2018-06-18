@@ -52,7 +52,7 @@ def fifa():
 
 def stock(keyword):
     return 'keyword = ' + keyword
-    if keyword == "":
+    if len(keyword) == 0:
 	    url = PTT_STOCK
     else:
         url = "{}/search?q={}".format(PTT_STOCK, keyword)
