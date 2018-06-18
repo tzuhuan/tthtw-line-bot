@@ -59,7 +59,7 @@ def stock(keyword):
     #return url
 
 def beauty():
-    url = PTT_BEAUTY
+    url = "{}/{}".format(PTT_BEAUTY, 'index.html')
     return parse_web(url)
 	
 if __name__ == '__main__':
