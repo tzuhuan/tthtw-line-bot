@@ -53,11 +53,15 @@ def stock(keyword):
     if len(keyword) == 0:
 	    url = PTT_STOCK
     else:
-        url = "{}/search?q={s}".format(PTT_STOCK, keyword)
+        url = "{}/search?q={}".format(PTT_STOCK, keyword)
     print(url)
     return parse_web(url)
     #return url
 
+def beauty():
+    url = PTT_BEAUTY
+    return parse_web(url)
+	
 if __name__ == '__main__':
     print(sys.argv)
     commands = sys.argv[1].split()
@@ -71,6 +75,8 @@ if __name__ == '__main__':
             print(stock(""))
     elif commands[0] == 'fifa':
         print(fifa())
+    elif commands[0] == 'beauty':
+        print(beauty())
     else:
         print('command error')
     
