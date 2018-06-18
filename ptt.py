@@ -50,7 +50,7 @@ def o2():
 def fifa():
     return 'FIFA2018 賽程表\n{}'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
 
-def stock(keyword = ""):
+def stock(keyword):
     if keyword == "":
 	    url = PTT_STOCK
     else:
