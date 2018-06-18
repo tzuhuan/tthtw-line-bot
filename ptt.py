@@ -4,6 +4,7 @@ PTT = 'https://www.ptt.cc'
 PTT_BEAUTY = 'https://www.ptt.cc/bbs/Beauty'
 PTT_O2 = 'https://www.ptt.cc/bbs/AllTogether'
 PTT_WORLDCUP = 'https://www.ptt.cc/bbs/WorldCup'
+PTT_STOCK = 'https://www.ptt.cc/bbs/Stock'
 
 def parse_web(url):
     res = requests.get(url)
@@ -49,11 +50,11 @@ def o2():
 def fifa():
     return 'FIFA2018 賽程表\n{}'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
 
-def beauty(keyword = ""):
+def stock(keyword = ""):
     if keyword == "":
-	    url = PTT_BEAUTY
+	    url = PTT_STOCK
     else:
-        url = "{}/search?q={}".format(PTT_BEAUTY, keyword)
+        url = "{}/search?q={}".format(PTT_STOCK, keyword)
     print(url)
     return parse_web(url)
     #return url
@@ -64,11 +65,11 @@ if __name__ == '__main__':
     print(commands)
     if commands[0] == 'o2':
         print(o2())
-    elif commands[0] == 'beauty':
+    elif commands[0] == 'stock':
         if len(commands) > 1:
-            print(beauty(commands[1]))
+            print(stock(commands[1]))
         else:
-            print(beauty())
+            print(stock())
     elif commands[0] == 'fifa':
         print(fifa())
     else:
