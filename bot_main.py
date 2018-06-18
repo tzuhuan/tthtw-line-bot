@@ -46,17 +46,23 @@ def SendPunchSticker(event):
 def handle_message(event):
     reply_message = ''
 
-    if event.message.text.lower() == 'ptto2':
+    commands = event.message.text.lower().split()
+    if commands[0] == 'ptto2':
         urls = ptt.o2()
         for url in urls:
             reply_message += url
-    elif event.message.text.lower() == 'fifa':
+    elif commands[0] == 'fifa':
         reply_message = ptt.fifa()
-    elif event.message.text.lower() == 'punch' or event.message.text == '揍':
+    elif commands[0] == 'punch' or commands[0] == '揍':
         SendPunchSticker(event)
         return
-    elif event.message.text.lower() == 'help':
+    elif commands[0] == 'help':
         reply_message = 'Supported commands:\nfifa\n揍\npunch'
+    elif commands[0] == 'pttbeauty':
+        if len(commands) > 1:
+            reply_message = ptt.beauty(commands[1])
+        else:
+            reply_message = ptt.beauty()
     else:
         return
 		

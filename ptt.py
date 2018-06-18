@@ -12,18 +12,23 @@ def parse_web(url):
     bs = bs4.BeautifulSoup(res.text, 'html.parser')
     links = bs.select('.title a')
 
-    print(str(len(links)))
-
+    count = str(len(links))
+    print(count)
+    if count == 0:
+        return 'Not found.'
+	
     results = []
-    count = 0
 
     for link in links:
         print(str(link))
         print(link.get('href'))
-            
-    results.append("{}\n{}{}\n".format(links[0].getText(), PTT, links[0].get('href')))
-    results.append("{}\n{}{}\n".format(links[1].getText(), PTT, links[1].get('href')))
-    results.append("{}\n{}{}\n".format(links[2].getText(), PTT, links[2].get('href')))
+    
+    try:	
+        results.append("{}\n{}{}\n".format(links[0].getText(), PTT, links[0].get('href')))
+        results.append("{}\n{}{}\n".format(links[1].getText(), PTT, links[1].get('href')))
+        results.append("{}\n{}{}\n".format(links[2].getText(), PTT, links[2].get('href')))
+    except:
+        return 'Not found.'
 
     print('\n')
 
@@ -41,18 +46,26 @@ def o2():
 def fifa():
     return 'FIFA2018 賽程表\n{}'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
 
-def beauty(keyword):
-    url = "{}/search?q={}".format(PTT_BEAUTY, keyword)
+def beauty(keyword = None):
+    if keyword == None:
+	    url = PTT_BEAUTY
+    else:
+        url = "{}/search?q={}".format(PTT_BEAUTY, keyword)
     print(url)
     return parse_web(url)
-	
+
 if __name__ == '__main__':
-    url = ''
-    if sys.argv[1] == 'o2':
-        o2()
-    elif sys.argv[1] == 'beauty':
-        beauty(sys.argv[2]);
-    elif sys.argv[1] == 'fifa':
+    print(sys.argv)
+    commands = sys.argv[1].split()
+
+    if commands[0] == 'o2':
+        print(o2())
+    elif commands[0] == 'beauty':
+        if len(commands) > 2:
+            print(beauty(commands[1]))
+        else:
+            print(beauty())
+    elif commands[0] == 'fifa':
         print(fifa())
     else:
         print('command error')
