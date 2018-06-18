@@ -7,7 +7,10 @@ PTT_WORLDCUP = 'https://www.ptt.cc/bbs/WorldCup'
 
 def parse_web(url):
     res = requests.get(url)
-    res.raise_for_status()
+    try:
+        res.raise_for_status()
+    except:
+        return url
     
     bs = bs4.BeautifulSoup(res.text, 'html.parser')
     links = bs.select('.title a')
