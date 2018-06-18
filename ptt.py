@@ -51,9 +51,9 @@ def beauty(keyword = ""):
 	    url = PTT_BEAUTY
     else:
         url = "{}/search?q={}".format(PTT_BEAUTY, keyword)
-    #print(url)
-    #return parse_web(url)
-    return url
+    print(url)
+    return parse_web(url)
+    #return url
 
 if __name__ == '__main__':
     print(sys.argv)
