@@ -15,12 +15,8 @@ def parse_web(url):
     
     bs = bs4.BeautifulSoup(res.text, 'html.parser')
     links = bs.select('.title a')
-
-    return url
     
-    count = str(len(links))
-    print(count)
-    if count == 0:
+    if len(links) == 0:
         return 'Not found.'
 	
     results = []
