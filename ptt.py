@@ -52,7 +52,7 @@ def stock(keyword):
     if len(keyword) == 0:
 	    url = PTT_STOCK
     else:
-        url = "{}/search?q={}".format(PTT_STOCK, keyword)
+        url = u"{}/search?q={}".format(PTT_STOCK, keyword)
     print(url)
     return parse_web(url)
     #return url
