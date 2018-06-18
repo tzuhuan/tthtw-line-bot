@@ -19,7 +19,7 @@ def parse_web(url):
     if len(links) == 0:
         return 'Not found.'
 	
-    results = ""
+    results = ['bot:\n']
 
     for link in links:
         print(str(link))
