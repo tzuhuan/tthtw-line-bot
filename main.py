@@ -64,6 +64,8 @@ def handle_message(event):
             reply_message = ptt.stock(commands[1])
         else:
             reply_message = ptt.stock("")
+    elif commands[0] == 'pttbeauty':
+        reply_message = ptt.beauty()
     else:
         return
 		
