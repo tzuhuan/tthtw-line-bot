@@ -49,10 +49,11 @@ def fifa():
     return 'FIFA2018 賽程表\n{}'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
 
 def stock(keyword):
+    url = ""
     if len(keyword) == 0:
 	    url = PTT_STOCK
     else:
-        url = u"{}/search?q={}".format(PTT_STOCK, keyword)
+        url = "{}/search?q={}".format(PTT_STOCK, keyword)
     print(url)
     return parse_web(url)
     #return url
