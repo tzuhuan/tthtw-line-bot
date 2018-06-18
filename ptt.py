@@ -7,6 +7,7 @@ PTT_WORLDCUP = 'https://www.ptt.cc/bbs/WorldCup'
 PTT_STOCK = 'https://www.ptt.cc/bbs/Stock'
 
 def parse_web(url):
+    return url
     res = requests.get(url)
     try:
         res.raise_for_status()
@@ -55,9 +56,9 @@ def stock(keyword):
 	    url = PTT_STOCK
     else:
         url = "{}/search?q={}".format(PTT_STOCK, keyword)
-    #print(url)
-    #return parse_web(url)
-    return url
+    print(url)
+    return parse_web(url)
+    #return url
 
 if __name__ == '__main__':
     print(sys.argv)
