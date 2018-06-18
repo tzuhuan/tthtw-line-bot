@@ -36,8 +36,8 @@ def parse_web(url):
 
     for i in results:
         print(i)
-    return url
-    #return results
+    #return url
+    return results
     
 
 def o2():
