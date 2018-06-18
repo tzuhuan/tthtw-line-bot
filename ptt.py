@@ -19,16 +19,19 @@ def parse_web(url):
     if len(links) == 0:
         return 'Not found.'
 	
-    results = ['bot:\n']
+    results = []
 
     for link in links:
         print(str(link))
         print(link.get('href'))
 
     try:	
-        results.append("{}\n{}{}\n".format(links[0].getText(), PTT, links[0].get('href')))
-        results.append("{}\n{}{}\n".format(links[1].getText(), PTT, links[1].get('href')))
-        results.append("{}\n{}{}\n".format(links[2].getText(), PTT, links[2].get('href')))
+        #results.append("{}\n{}{}\n".format(links[0].getText(), PTT, links[0].get('href')))
+        #results.append("{}\n{}{}\n".format(links[1].getText(), PTT, links[1].get('href')))
+        #results.append("{}\n{}{}\n".format(links[2].getText(), PTT, links[2].get('href')))
+        results.append("{}{}\n".format(PTT, links[0].get('href')))
+        results.append("{}{}\n".format(PTT, links[1].get('href')))
+        results.append("{}{}\n".format(PTT, links[2].get('href')))
     except:
         return 'Not found.'
 
