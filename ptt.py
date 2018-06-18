@@ -24,7 +24,7 @@ def parse_web(url):
     for link in links:
         print(str(link))
         print(link.get('href'))
-    return url
+
     try:	
         results.append("{}\n{}{}\n".format(links[0].getText(), PTT, links[0].get('href')))
         results.append("{}\n{}{}\n".format(links[1].getText(), PTT, links[1].get('href')))
@@ -36,8 +36,8 @@ def parse_web(url):
 
     for i in results:
         print(i)
-
-    return results
+    return url
+    #return results
     
 
 def o2():
