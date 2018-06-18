@@ -60,10 +60,10 @@ def handle_message(event):
         reply_message = 'Supported commands:\nfifa\n揍\npunch'
     elif commands[0] == 'pttbeauty':
         reply_message = 'beauty'
-        if len(commands) > 1:
-            reply_message = ptt.beauty(commands[1])
-        else:
-            reply_message = ptt.beauty()
+        #if len(commands) > 1:
+        #    reply_message = ptt.beauty(commands[1])
+        #else:
+        #    reply_message = ptt.beauty()
     else:
         return
 		
