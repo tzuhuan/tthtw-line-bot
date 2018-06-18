@@ -46,8 +46,8 @@ def o2():
 def fifa():
     return 'FIFA2018 賽程表\n{}'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
 
-def beauty(keyword = None):
-    if keyword == None:
+def beauty(keyword = ""):
+    if keyword == "":
 	    url = PTT_BEAUTY
     else:
         url = "{}/search?q={}".format(PTT_BEAUTY, keyword)
