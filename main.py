@@ -39,11 +39,9 @@ def callback():
     return 'OK'
 
 def help():
-    return ('Supported commands:\n'
-            'fifa\n'
+    return ('fifa\n'
             '揍\n'
-            'punch\n'
-            'pttstock [keyword]\n')
+            'punch')
     
 def SendPunchSticker(event):
     sticker_message = StickerMessage(package_id='2', sticker_id=147)
@@ -65,6 +63,8 @@ def handle_message(event):
         return
     elif commands[0] == 'help':
         reply_message = help()
+    elif commands[0] == 'ptthelp':
+        reply_message = ptt.help()
     elif commands[0] == 'pttstock':
         if len(commands) > 1:
             reply_message = ptt.stock(commands[1])

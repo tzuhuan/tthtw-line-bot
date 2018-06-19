@@ -59,9 +59,17 @@ def beauty(keyword = ""):
     else:
         url = "{}/search?q={}".format(PTT_BEAUTY, keyword)
     return parse_web(url)
+    
+def help():
+    return ('pttstock [keyword]\n'
+            'pttbeauty [keyword]\n'
+            'ptto2')
 	
 if __name__ == '__main__':
     # testing cases
+    print("-----help-----")
+    print(help())
+    
     print("-----test fifa-----")
     print(fifa())
     
