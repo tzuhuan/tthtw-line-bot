@@ -11,6 +11,7 @@ from linebot.models import (
 )
 
 import ptt, configparser
+import stock
 
 app = Flask(__name__)
 
@@ -41,7 +42,8 @@ def callback():
 def help():
     return ('fifa\n'
             '揍\n'
-            'punch')
+            'punch\n'
+            'stock [stock_number]. Default is tsmc')
     
 def SendPunchSticker(event):
     sticker_message = StickerMessage(package_id='2', sticker_id=147)
@@ -75,6 +77,12 @@ def handle_message(event):
             reply_message = ptt.beauty(commands[1])
         else:
             reply_message = ptt.beauty()
+    elif commands[0] == 'stock':
+        stock_obj = stock.Stock()
+        if len(commands) > 1:
+            reply_message = stock_obj.query(commands[1])
+        else:
+            reply_message = stock_obj.query()
     else:
         return
 		
