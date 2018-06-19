@@ -19,27 +19,18 @@ def parse_web(url):
     if len(links) == 0:
         return 'Not found.'
 	
-    results = []
+    results = ""
 
-    for link in links:
-        print(str(link))
-        print(link.get('href'))
+    #for link in links:
+    #    print(str(link))
+    #    print(link.get('href'))
 
     try:	
-        results.append("{}\n{}{}\n".format(links[0].getText(), PTT, links[0].get('href')))
-        results.append("{}\n{}{}\n".format(links[1].getText(), PTT, links[1].get('href')))
-        results.append("{}\n{}{}\n".format(links[2].getText(), PTT, links[2].get('href')))
-        #results.append("{}{}\n".format(PTT, links[0].get('href')))
-        #results.append("{}{}\n".format(PTT, links[1].get('href')))
-        #results.append("{}{}\n".format(PTT, links[2].get('href')))
+        for i in range(3):
+            results = results + "{}\n{}{}\n".format(links[i].getText(), PTT, links[i].get('href'))
     except:
         return 'Not found.'
 
-    print('\n')
-
-    for i in results:
-        print(i)
-    #return url
     return results
     
 
@@ -49,9 +40,9 @@ def o2():
     return parse_web(url)  
 
 def fifa():
-    return 'FIFA2018 賽程表\n{}'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
+    return 'FIFA2018 賽程表\n{}\n'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
 
-def stock(keyword):
+def stock(keyword = ""):
     url = ""
     if len(keyword) == 0:
 	    url = PTT_STOCK
@@ -61,25 +52,31 @@ def stock(keyword):
     return parse_web(url)
     #return url
 
-def beauty():
-    url = "{}/search?q={}".format(PTT_BEAUTY, '三上')
+def beauty(keyword = ""):
+    url = ""
+    if len(keyword) == 0:
+        url = PTT_BEAUTY
+    else:
+        url = "{}/search?q={}".format(PTT_BEAUTY, keyword)
     return parse_web(url)
 	
 if __name__ == '__main__':
-    print(sys.argv)
-    commands = sys.argv[1].split()
-    print(commands)
-    if commands[0] == 'o2':
-        print(o2())
-    elif commands[0] == 'stock':
-        if len(commands) > 1:
-            print(stock(commands[1]))
-        else:
-            print(stock(""))
-    elif commands[0] == 'fifa':
-        print(fifa())
-    elif commands[0] == 'beauty':
-        print(beauty())
-    else:
-        print('command error')
+    # testing cases
+    print("-----test fifa-----")
+    print(fifa())
+    
+    print("-----test o2-----")
+    print(o2())
+    
+    print("-----test stock-----")
+    print(stock())
+    
+    print("-----test stock-----")
+    print(stock('標的'))    
+    
+    print("-----test beauty-----")
+    print(beauty())
+    
+    print("-----test beauty-----")
+    print(beauty('高中'))
     
