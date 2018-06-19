@@ -38,6 +38,13 @@ def callback():
 
     return 'OK'
 
+def help():
+    return ('Supported commands:\n'
+            'fifa\n'
+            '揍\n'
+            'punch\n'
+            'pttstock [keyword]\n')
+    
 def SendPunchSticker(event):
     sticker_message = StickerMessage(package_id='2', sticker_id=147)
     line_bot_api.reply_message(event.reply_token, sticker_message)   
@@ -57,15 +64,17 @@ def handle_message(event):
         SendPunchSticker(event)
         return
     elif commands[0] == 'help':
-        reply_message = 'Supported commands:\nfifa\n揍\npunch\npttstock'
+        reply_message = help()
     elif commands[0] == 'pttstock':
-        #reply_message = str(commands)
         if len(commands) > 1:
             reply_message = ptt.stock(commands[1])
         else:
             reply_message = ptt.stock()
     elif commands[0] == 'pttbeauty':
-        reply_message = ptt.beauty()
+        if len(commands) > 1:
+            reply_message = ptt.beauty(commands[1])
+        else:
+            reply_message = ptt.beauty()
     else:
         return
 		
@@ -77,7 +86,7 @@ def handle_message(event):
 def handle_sticker_message(event):
     #sticker_message = StickerMessage(package_id='1', sticker_id=13)
     #line_bot_api.reply_message(event.reply_token, sticker_message)
-    pass
+	pass
 		
 if __name__ == "__main__":
     app.run()
