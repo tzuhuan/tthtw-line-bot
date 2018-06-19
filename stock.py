@@ -1,7 +1,7 @@
 import twstock
 
-PRICE_LENGTH = 5 + 1
-VOLUME_LEHGTH = 7 + 1
+PRICE_LENGTH = 7
+VOLUME_LEHGTH = 7
 
 class Stock():    
     def query(self, stock_number = '2330'):
@@ -25,12 +25,12 @@ class Stock():
             result = company_name + ' (' + company_code + ')\n'
 
             result = result + '即時價格: ' + latest_trade_price + ', 開盤價: ' + open_price + '\n'
-            result = result + '買'.center(PRICE_LENGTH + VOLUME_LEHGTH, '-') + '|' + '賣'.center(PRICE_LENGTH + VOLUME_LEHGTH, '-') + '\n'
+            result = result + '買'.center(PRICE_LENGTH + VOLUME_LEHGTH - 1, '-') + '|' + '賣'.center(PRICE_LENGTH + VOLUME_LEHGTH - 1, '-') + '\n'
             for i in range(5):
                 result = result + \
-                         best_bid_price[i].ljust(PRICE_LENGTH, ' ') + \
-                         best_bid_volume[i].rjust(VOLUME_LEHGTH) + \
-                        '  ' + \
+                         best_bid_volume[i].ljust(PRICE_LENGTH, ' ') + \
+                         best_bid_price[i].rjust(VOLUME_LEHGTH, ' ') + \
+                        ' ' + \
                          best_ask_price[i].ljust(PRICE_LENGTH, ' ') + \
                          best_ask_volume[i].rjust(VOLUME_LEHGTH, ' ') + \
                          '\n'
