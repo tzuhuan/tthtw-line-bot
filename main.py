@@ -77,7 +77,7 @@ def handle_message(event):
 def handle_sticker_message(event):
     #sticker_message = StickerMessage(package_id='1', sticker_id=13)
     #line_bot_api.reply_message(event.reply_token, sticker_message)
-	pass
+    pass
 		
 if __name__ == "__main__":
     app.run()
