@@ -7,7 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage,
+    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage, ImageMessage,
 )
 
 import ptt, configparser
@@ -83,9 +83,13 @@ def handle_message(event):
             reply_message = stock_obj.query(commands[1])
         else:
             reply_message = stock_obj.query()
+    elif commands[0] == 'tth':
+        image_message = ImageMessage('https://pic.pimg.tw/jackaly9527/4a608dbd1c3fa.jpg', 'https://pic.pimg.tw/jackaly9527/4a608dbd1c3fa.jpg')
+        line_bot_api.reply_message(event.reply_token, image_message)
+        return
     else:
         return
-		
+
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=reply_message))
