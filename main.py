@@ -52,9 +52,9 @@ def SendPunchSticker(event):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     reply_message = ''
-
     received_msg = event.message.text.lower()
     commands = received_msg.split()
+    
     if commands[0] == 'ptt':
         reply_message = ptt.query(received_msg)
     elif commands[0] == 'fifa':
@@ -69,7 +69,7 @@ def handle_message(event):
         if len(commands) > 1:
             reply_message = stock_obj.query(commands[1])
         else:
-            reply_message = stock_obj.query()
+            return
     elif commands[0] == 'tth':
         image_message = ImageSendMessage('https://pic.pimg.tw/jackaly9527/4a608dbd1c3fa.jpg', 'https://pic.pimg.tw/jackaly9527/4a608dbd1c3fa.jpg')
         line_bot_api.reply_message(event.reply_token, image_message)
