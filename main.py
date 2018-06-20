@@ -41,9 +41,9 @@ def callback():
 
 def help():
     return ('fifa\n'
-            '揍\n'
-            'punch\n'
-            'stock [stock_number]. Default is tsmc')
+            '揍/punch\n'
+            'ptt [版名] [關鍵字]\n'
+            'stock [代號]')
     
 def SendPunchSticker(event):
     sticker_message = StickerMessage(package_id='2', sticker_id=147)
@@ -53,11 +53,10 @@ def SendPunchSticker(event):
 def handle_message(event):
     reply_message = ''
 
-    commands = event.message.text.lower().split()
-    if commands[0] == 'ptto2':
-        urls = ptt.o2()
-        for url in urls:
-            reply_message += url
+    received_msg = event.message.text.lower()
+    commands = received_msg.split()
+    if commands[0] == 'ptt':
+        reply_message = ptt.query(received_msg)
     elif commands[0] == 'fifa':
         reply_message = ptt.fifa()
     elif commands[0] == 'punch' or commands[0] == '揍':
@@ -65,18 +64,6 @@ def handle_message(event):
         return
     elif commands[0] == 'help':
         reply_message = help()
-    elif commands[0] == 'ptthelp':
-        reply_message = ptt.help()
-    elif commands[0] == 'pttstock':
-        if len(commands) > 1:
-            reply_message = ptt.stock(commands[1])
-        else:
-            reply_message = ptt.stock()
-    elif commands[0] == 'pttbeauty':
-        if len(commands) > 1:
-            reply_message = ptt.beauty(commands[1])
-        else:
-            reply_message = ptt.beauty()
     elif commands[0] == 'stock':
         stock_obj = stock.Stock()
         if len(commands) > 1:
