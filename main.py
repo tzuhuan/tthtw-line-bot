@@ -7,7 +7,8 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage, ImageSendMessage,
+    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage,
+    ImageSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction
 )
 
 import ptt, configparser
@@ -49,6 +50,25 @@ def SendPunchSticker(event):
     sticker_message = StickerMessage(package_id='2', sticker_id=147)
     line_bot_api.reply_message(event.reply_token, sticker_message)   
 
+def ptt_quick_menu(event):
+    bottons_template = TemplateSendMessage(
+        alt_text='PTT template',
+        template=ButtonsTemplate(
+            title='PTT Quick Menu',
+            text='請選擇',
+            actions=[
+                MessageTemplateAction(
+                    label='Tech_Job',
+                    text='ptt tech_job'),
+                MessageTemplateAction(
+                    label='表特',
+                    text='ptt beauty')
+                   ]
+            )
+        )
+    
+    line_bot_api.reply_message(event.reply_token, bottons_template)
+    
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     reply_message = ''
@@ -56,7 +76,11 @@ def handle_message(event):
     commands = received_msg.split()
     
     if commands[0] == 'ptt':
-        reply_message = ptt.query(received_msg)
+        if len(commands) == 1:
+            ptt_quick_menu(event)
+            return
+        else:
+            reply_message = ptt.query(received_msg)
     elif commands[0] == 'fifa':
         reply_message = ptt.fifa()
     elif commands[0] == 'punch' or commands[0] == '揍':
