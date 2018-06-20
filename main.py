@@ -13,6 +13,7 @@ from linebot.models import (
 
 import ptt, configparser
 import stock
+import randomcat
 
 app = Flask(__name__)
 
@@ -98,6 +99,12 @@ def handle_message(event):
         image_message = ImageSendMessage('https://pic.pimg.tw/jackaly9527/4a608dbd1c3fa.jpg', 'https://pic.pimg.tw/jackaly9527/4a608dbd1c3fa.jpg')
         line_bot_api.reply_message(event.reply_token, image_message)
         return
+    elif commands[0] == '貓貓圖':
+        cat = randomcat.RandomCat()
+        url = cat.query()
+        image_message = ImageSendMessage(url, url)
+        line_bot_api.reply_message(event.reply_token, image_message)
+        return       
     else:
         return
 
