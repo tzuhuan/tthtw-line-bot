@@ -1,4 +1,4 @@
-from flask import Flask, request, abort
+﻿from flask import Flask, request, abort
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -7,7 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage, ImageMessage,
+    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage, ImageSendMessage,
 )
 
 import ptt, configparser
@@ -84,7 +84,7 @@ def handle_message(event):
         else:
             reply_message = stock_obj.query()
     elif commands[0] == 'tth':
-        image_message = ImageMessage('https://pic.pimg.tw/jackaly9527/4a608dbd1c3fa.jpg', 'https://pic.pimg.tw/jackaly9527/4a608dbd1c3fa.jpg')
+        image_message = ImageSendMessage('https://pic.pimg.tw/jackaly9527/4a608dbd1c3fa.jpg', 'https://pic.pimg.tw/jackaly9527/4a608dbd1c3fa.jpg')
         line_bot_api.reply_message(event.reply_token, image_message)
         return
     else:
