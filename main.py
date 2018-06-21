@@ -12,7 +12,7 @@ from linebot.models import (
 )
 
 import configparser
-from modules import ptt, stock, randomcat
+from modules import ptt, stock, randomcat, randomwife
 
 app = Flask(__name__)
 
@@ -50,19 +50,19 @@ def SendPunchSticker(event):
     sticker_message = StickerMessage(package_id='2', sticker_id=147)
     line_bot_api.reply_message(event.reply_token, sticker_message)   
 
-def ptt_quick_menu(event):
+def quick_menu(event):
     bottons_template = TemplateSendMessage(
-        alt_text='PTT template',
+        alt_text='TTHTW template',
         template=ButtonsTemplate(
-            title='PTT Quick Menu',
+            title='TTHTW Quick Menu',
             text='請選擇',
             actions=[
                 MessageTemplateAction(
-                    label='Tech_Job',
-                    text='ptt tech_job'),
+                    label='貓貓圖',
+                    text='貓貓圖'),
                 MessageTemplateAction(
-                    label='表特',
-                    text='ptt beauty')
+                    label='2018 世足賽',
+                    text='fifa')
                    ]
             )
         )
@@ -72,12 +72,17 @@ def ptt_quick_menu(event):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     reply_message = ''
-    received_msg = event.message.text.lower()
+    received_msg = event.message.text.lower()    
     commands = received_msg.split()
     
-    if commands[0] == 'ptt':
+    if received_msg.find('我老婆') != -1:
+        wife = randomwife.RandomWife()
+        url = wife.query()
+        line_bot_api.reply_message(event.reply_token, ImageSendMessage(url, url))
+        return
+    elif commands[0] == 'tthtw':
         if len(commands) == 1:
-            ptt_quick_menu(event)
+            quick_menu(event)
             return
         else:
             reply_message = ptt.query(received_msg)
@@ -105,8 +110,8 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, image_message)
         return       
     else:
-        return
-
+        return       
+        
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=reply_message))
