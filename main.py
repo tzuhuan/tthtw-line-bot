@@ -80,6 +80,8 @@ def handle_message(event):
         url = wife.query()
         line_bot_api.reply_message(event.reply_token, ImageSendMessage(url, url))
         return
+    elif commands[0] == 'ptt':
+        reply_message = ptt.query(received_msg)
     elif commands[0] == 'tthtw':
         if len(commands) == 1:
             quick_menu(event)
