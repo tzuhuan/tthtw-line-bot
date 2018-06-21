@@ -11,9 +11,8 @@ from linebot.models import (
     ImageSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction
 )
 
-import ptt, configparser
-import stock
-import randomcat
+import configparser
+from modules import ptt, stock, randomcat
 
 app = Flask(__name__)
 
