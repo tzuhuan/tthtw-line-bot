@@ -12,7 +12,7 @@ from linebot.models import (
 )
 
 import configparser
-from modules import ptt, stock, randomcat, randomwife
+from modules import ptt, stock, randomcat, randomwife, randomuser
 
 app = Flask(__name__)
 
@@ -110,7 +110,11 @@ def handle_message(event):
         url = cat.query()
         image_message = ImageSendMessage(url, url)
         line_bot_api.reply_message(event.reply_token, image_message)
-        return       
+        return
+    elif commands[0] == 'randomuser':
+        user = randomuser.RandomUser()
+        url = user.query()
+        line_bot_api.reply_message(event.reply_token, ImageSendMessage(url, url))
     else:
         return       
         
