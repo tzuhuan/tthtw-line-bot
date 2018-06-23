@@ -3,7 +3,7 @@ import requests, json
 RANDOM_USER_API = 'https://randomuser.me/api/?'
 random_user_params = {'results' : '1',
                      'gender' : 'female',
-                     'nat' : 'us',
+                     'nat' : 'ch',
                      'inc' : 'picture'}
 
 class RandomUser():
@@ -23,7 +23,7 @@ class RandomUser():
             
         data = json.loads(res.text)
         #print(data['results'][0]['picture']['thumbnail'])
-        return data['results'][0]['picture']['thumbnail']
+        return data['results'][0]['picture']['large']
         
 def test():
     user = RandomUser()

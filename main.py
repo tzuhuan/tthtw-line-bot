@@ -111,10 +111,10 @@ def handle_message(event):
         image_message = ImageSendMessage(url, url)
         line_bot_api.reply_message(event.reply_token, image_message)
         return
-    elif commands[0] == 'randomuser':
-        user = randomuser.RandomUser()
-        url = user.query()
-        line_bot_api.reply_message(event.reply_token, ImageSendMessage(url, url))
+    #elif commands[0] == 'randomuser':
+    #    user = randomuser.RandomUser()
+    #    url = user.query()
+    #    line_bot_api.reply_message(event.reply_token, ImageSendMessage(url, url))
     else:
         return       
         
