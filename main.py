@@ -12,7 +12,7 @@ from linebot.models import (
 )
 
 import configparser
-from modules import ptt, stock, randomcat, randomwife, randomuser
+from modules import ptt, stock, randomcat, randomwife, randomuser, randomdaughter
 
 app = Flask(__name__)
 
@@ -78,6 +78,11 @@ def handle_message(event):
     if received_msg.find('我老婆') != -1:
         wife = randomwife.RandomWife()
         url = wife.query()
+        line_bot_api.reply_message(event.reply_token, ImageSendMessage(url, url))
+        return
+    elif received_msg.find('我女兒') != -1:
+        daughter = randomdaughter.RandomDaughter()
+        url = daughter.query()
         line_bot_api.reply_message(event.reply_token, ImageSendMessage(url, url))
         return
     elif commands[0] == 'ptt':
