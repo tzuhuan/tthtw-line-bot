@@ -3,7 +3,7 @@ import random
 
 class RandomDaughter():
     def query(self):
-        daughter_list = ['https://imgur.com/AOV9FRn',
+        daughter_list = ['https://imgur.com/F2rivuN',
                      'https://imgur.com/a/xuPvL4c',
                      'https://imgur.com/a/FhtXTXj']
                      
