@@ -59,22 +59,18 @@ def get_imgur_url(url):
     return url
     
 def get_photo(url):
-    res = requests.get(url)
-    try:
-        res.raise_for_status()
-    except:
-        return url
-        
-    bs = bs4.BeautifulSoup(res.text, 'html.parser')
-    tags = bs.select('meta[name="twitter:image"]')
+    res = send_request(url)
+    tags = get_html_tag_elements(res, 'meta[name="twitter:image"]')
     return tags[0].get('content')
     
 def random_beauty():
-    url = '{}{}/search?q={}'.format(PTT_BBS, 'beauty', '正妹')
+    random_page = random.randint(1, 20)
+    url = '{}{}/search?page={}&q={}'.format(PTT_BBS, 'beauty', str(random_page), '正妹')
+    print(url)
     res = send_request(url)
     articles = get_html_tag_elements(res, '.title a')
-    chosen = articles[random.randint(0, len(articles) -1)];
-    return get_imgur_url(PTT + chosen.get('href'))
+    chosen = articles[random.randint(0, len(articles) -1)]
+    return chosen.getText(), get_imgur_url(PTT + chosen.get('href'))
     
 def fifa():
     return 'WorldCup 2018 賽程表\n{}\n'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
@@ -89,7 +85,7 @@ def query(commands):
         if commands[1] == 'allTogether':
             url = '{}{}/search?q={}'.format(PTT_BBS, commands[1], '徵男')
         elif commands[1] == 'pic': # ptt pic
-            return random_beauty();
+            return random_beauty()
         else:
             url = '{}{}'.format(PTT_BBS, commands[1])
     else: # ptt Stock 0050
@@ -119,7 +115,9 @@ def test():
     #print("-----ptt beauty 高中-----")
     #print(query('ptt beauty 高中'))
 
-    print(query('ptt pic'))
+    title, url = query('ptt pic')
+    print(title)
+    print(url)
     
 if __name__ == '__main__':
     test()
