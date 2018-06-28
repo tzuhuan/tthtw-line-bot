@@ -88,9 +88,12 @@ def handle_message(event):
     elif commands[0] == 'ptt':
         reply_message = ptt.query(received_msg)
     elif commands[0] == 'pttaa':
-        title, url = ptt.query('ptt pic')
-        line_bot_api.reply_message(event.reply_token, [TextSendMessage(text=title), ImageSendMessage(url, url)])
-        return
+        title, url = ptt.query(received_msg)
+        if url.find('imgur') > -1:
+            line_bot_api.reply_message(event.reply_token, [TextSendMessage(text=title), ImageSendMessage(url, url)])
+            return
+        else:
+            reply_message = 'Not found, try again' 
     elif commands[0] == 'tthtw':
         if len(commands) == 1:
             quick_menu(event)

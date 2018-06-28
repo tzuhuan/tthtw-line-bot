@@ -1,11 +1,12 @@
 import requests, bs4, sys
-import random
+import random, re
 
 PTT = 'https://www.ptt.cc'
 PTT_BBS = 'https://www.ptt.cc/bbs/'
 PTT_WORLDCUP = 'https://www.ptt.cc/bbs/WorldCup'
 
 def send_request(url):
+    print(url)
     res = requests.get(url)
     try:
         res.raise_for_status()
@@ -61,14 +62,34 @@ def get_imgur_url(url):
 def get_photo(url):
     res = send_request(url)
     tags = get_html_tag_elements(res, 'meta[name="twitter:image"]')
+    if len(tags) == 0:
+        return url
+        
     return tags[0].get('content')
+
+def get_total_pages(html_source):
+    regex = re.compile('page=\d+&')
+    page_info = regex.findall(html_source)[0]
+    total_pages = int(page_info[5:-1])
+    print('total_pages: ' + str(total_pages))
     
-def random_beauty():
-    random_page = random.randint(1, 20)
-    url = '{}{}/search?page={}&q={}'.format(PTT_BBS, 'beauty', str(random_page), '正妹')
-    print(url)
+    if total_pages > 20:
+        total_pages = 20
+    
+    return total_pages 
+    
+def random_beauty(keyword='正妹'):
+    url = '{}{}/search?q={}'.format(PTT_BBS, 'beauty', keyword)
     res = send_request(url)
+    
+    url = '{}{}/search?page={}&q={}'.format(PTT_BBS, 'beauty', random.randint(1, get_total_pages(res)), keyword)
+    res = send_request(url)
+    
     articles = get_html_tag_elements(res, '.title a')
+    print('number of articles: ' + str(len(articles)))
+    if len(articles) == 0:
+        return "", ""
+    
     chosen = articles[random.randint(0, len(articles) -1)]
     return chosen.getText(), get_imgur_url(PTT + chosen.get('href'))
     
@@ -78,14 +99,15 @@ def fifa():
 def query(commands):
     commands = commands.split()
     length = len(commands)
-    if length < 2: # ptt
-        return ""
     
-    if length == 2: # ptt Stock
+    if length == 1:
+        if commands[0] == 'pttaa':
+            return random_beauty()
+    elif length == 2: # ptt Stock
         if commands[1] == 'allTogether':
             url = '{}{}/search?q={}'.format(PTT_BBS, commands[1], '徵男')
-        elif commands[1] == 'pic': # ptt pic
-            return random_beauty()
+        elif commands[0] == 'pttaa': # pttaa 123
+            return random_beauty(commands[1])
         else:
             url = '{}{}'.format(PTT_BBS, commands[1])
     else: # ptt Stock 0050
@@ -115,9 +137,8 @@ def test():
     #print("-----ptt beauty 高中-----")
     #print(query('ptt beauty 高中'))
 
-    title, url = query('ptt pic')
-    print(title)
-    print(url)
+    title, url = query('pttaa')
+    print(title, url)
     
 if __name__ == '__main__':
     test()
