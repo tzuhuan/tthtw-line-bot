@@ -94,7 +94,7 @@ def random_beauty(keyword='正妹'):
     return chosen.getText(), get_imgur_url(PTT + chosen.get('href'))
     
 def fifa():
-    return 'WorldCup 2018 賽程表\n{}\n'.format('https://www.ptt.cc/bbs/WorldCup/M.1528816712.A.BB1.html')
+    return 'WorldCup 2018 賽程表\n{}\n'.format('https://www.ptt.cc/bbs/WorldCup/M.1530220649.A.0E6.html')
 	
 def query(commands):
     commands = commands.split()
@@ -107,7 +107,11 @@ def query(commands):
         if commands[1] == 'allTogether':
             url = '{}{}/search?q={}'.format(PTT_BBS, commands[1], '徵男')
         elif commands[0] == 'pttaa': # pttaa 123
-            return random_beauty(commands[1])
+            title, url = random_beauty(commands[1])
+            if url.find('imgur') == -1:
+                url = '???'
+                title = '???'
+            return title, url
         else:
             url = '{}{}'.format(PTT_BBS, commands[1])
     else: # ptt Stock 0050
