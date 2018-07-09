@@ -107,10 +107,21 @@ def query(commands):
         if commands[1] == 'allTogether':
             url = '{}{}/search?q={}'.format(PTT_BBS, commands[1], '徵男')
         elif commands[0] == 'pttaa': # pttaa 123
-            title, url = random_beauty(commands[1])
-            if url.find('imgur') == -1:
-                url = '???'
-                title = '???'
+            retry = 0
+            while True:
+                title, url = random_beauty(commands[1])
+                if url.find('.jpg') == -1:
+                    url = '???'
+                    title = '???'
+                else:
+                    break;
+                
+                print(str(retry))
+                if retry > 2:
+                    break;
+                
+                retry = retry + 1
+                
             return title, url
         else:
             url = '{}{}'.format(PTT_BBS, commands[1])
@@ -141,7 +152,7 @@ def test():
     #print("-----ptt beauty 高中-----")
     #print(query('ptt beauty 高中'))
 
-    title, url = query('pttaa')
+    title, url = query('pttaa 一日')
     print(title, url)
     
 if __name__ == '__main__':

@@ -3,17 +3,25 @@
 from linebot import (
     LineBotApi, WebhookHandler
 )
-from linebot.exceptions import (
-    InvalidSignatureError
-)
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage,
-    ImageSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction
-)
+
+from linebot.exceptions import *
+from linebot.models import *
+#from linebot.exceptions import (
+#    InvalidSignatureError
+#)
+#from linebot.models import (
+#    MessageEvent, TextMessage, TextSendMessage, StickerMessage, StickerSendMessage,
+#    ImageSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction
+#)
 
 import configparser
-from modules import ptt, stock, randomcat, randomwife, randomuser, randomdaughter
+from modules import ptt, stock, randomcat, randomwife, randomuser, randomdaughter, randombird
 
+#
+from modules import ptt_widget, random_dog
+import random
+import time
+#
 app = Flask(__name__)
 
 config = configparser.ConfigParser()
@@ -68,6 +76,65 @@ def quick_menu(event):
         )
     
     line_bot_api.reply_message(event.reply_token, bottons_template)
+
+def chi_ptt_widget(event):
+    time_beginTimer = time.time()
+    ptt_beauty = ptt_widget.BroadCrawler('Beauty')
+        
+    luckyArticle = None
+    lst_imgUrls = None
+    while(luckyArticle is None):
+        int_luckyIndex = ptt_beauty.get_last_page_index() - random.randint(0, ptt_widget.INT_RANDOM_LIMIT)
+        if not int_luckyIndex > 0:
+            continue
+         
+        lst_articles = list()
+        lst_articles.extend(ptt_beauty.get_article_links(int_luckyIndex))
+        if not len(lst_articles) > 0:
+            continue
+            
+        int_luckyPage = random.randint(0, len(lst_articles) - 1)
+        for article in lst_articles[int_luckyPage:]:
+            print ('debug: select %s' % article)
+            lst_imgUrls = article.get_thumb_list()
+            if not lst_imgUrls is None:
+                print ('debug: %s' % lst_imgUrls)
+                luckyArticle = article
+                break
+    print ('debug: chose %s' % luckyArticle.dict_info['str_title'])
+    print ('debug: url >>> %s' % luckyArticle.dict_info['str_url'])
+        
+    lst_carouselColumns = list()
+    lst_label = luckyArticle.get_split_label()
+    for index, imgUrl in enumerate(lst_imgUrls):
+        print ('debug: +%s' % imgUrl)
+        lst_carouselColumns.append(
+            ImageCarouselColumn(
+                image_url = imgUrl,
+                #action=MessageAction(
+                #        label = lst_label[index%len(lst_label)],
+                #        text='我覺得圖[%d]很可以！\n\n%s\n%s' % (index+1, luckyArticle.dict_info['str_title'], luckyArticle.dict_info['str_url'])
+                #)
+                action=URITemplateAction(
+                        label = lst_label[index%len(lst_label)],
+                        uri = luckyArticle.dict_info['str_url']
+                )
+            )
+        )
+        if len(lst_carouselColumns) >= 5:
+            break
+        
+    imageCarousel = TemplateSendMessage(
+        alt_text = '%s\n%s' % (luckyArticle.dict_info['str_title'], luckyArticle.dict_info['str_url']),
+        template = ImageCarouselTemplate(columns = lst_carouselColumns)
+    )
+        
+    print('debug: Image Carousel: %s' % imageCarousel)
+    print('debug: Cost: %.2f sec' % (time.time() - time_beginTimer))
+       
+    reply_msg = imageCarousel
+    print('debug: error check: %s' % reply_msg)
+    line_bot_api.reply_message(event.reply_token, reply_msg)
     
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -125,10 +192,25 @@ def handle_message(event):
         image_message = ImageSendMessage(url, url)
         line_bot_api.reply_message(event.reply_token, image_message)
         return
+    elif commands[0] == '狗狗圖':
+        dog = random_dog.RandomDog()
+        url = dog.query()
+        image_message = ImageSendMessage(url, url)
+        line_bot_api.reply_message(event.reply_token, image_message)
+        return
+    elif commands[0] == '鳥鳥圖':
+        bird = randombird.RandomBird()
+        url = bird.query()
+        image_message = ImageSendMessage(url, url)
+        line_bot_api.reply_message(event.reply_token, image_message)
+        return   
     #elif commands[0] == 'randomuser':
     #    user = randomuser.RandomUser()
     #    url = user.query()
     #    line_bot_api.reply_message(event.reply_token, ImageSendMessage(url, url))
+    elif commands[0] == '表特霸':
+        chi_ptt_widget(event)
+        return
     else:
         return       
         
