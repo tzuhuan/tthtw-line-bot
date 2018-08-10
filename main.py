@@ -225,4 +225,5 @@ def handle_sticker_message(event):
 	pass
 		
 if __name__ == "__main__":
+    # test
     app.run()
