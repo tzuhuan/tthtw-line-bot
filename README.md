@@ -1,2 +1,2 @@
 # tthtw-line-bot
-A Line bot using line-bot-sdk-python
+A Line bot based on line-bot-sdk-python
